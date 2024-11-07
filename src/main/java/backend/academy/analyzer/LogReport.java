@@ -32,11 +32,11 @@ public class LogReport {
         totalBodyBytesSent += logRecord.bodyBytesSent();
         bodyBytesSent.add(logRecord.bodyBytesSent());
 
-        if (fromDate == null || logRecord.timeLocal().isBefore(fromDate)) {
+        if (fromDate == null || logRecord.timeLocal() != null && logRecord.timeLocal().isBefore(fromDate)) {
             fromDate = logRecord.timeLocal();
         }
 
-        if (toDate == null || logRecord.timeLocal().isAfter(toDate)) {
+        if (toDate == null || logRecord.timeLocal() != null && logRecord.timeLocal().isAfter(toDate)) {
             toDate = logRecord.timeLocal();
         }
 
