@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class LogReader {
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z");
 
-    private static LogRecord parse(String logLine) {
+    private static LogRecord parse(Path path, String logLine) {
         Matcher matcher = LOG_PATTERN.matcher(logLine);
 
         if (!matcher.find()) {
@@ -38,7 +39,7 @@ public class LogReader {
         String httpUserAgent    = matcher.group("httpUserAgent");
 
         return new LogRecord(
-            remoteAddr, remoteUser, timeLocal, request, status, bodyBytesSent, httpReferer, httpUserAgent
+            path, remoteAddr, remoteUser, timeLocal, request, status, bodyBytesSent, httpReferer, httpUserAgent
         );
     }
 
@@ -47,7 +48,7 @@ public class LogReader {
             FileInputStream fileInputStream = new FileInputStream(path);
             BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
             return reader.lines()
-                         .map(LogReader::parse);
+                         .map(logLine -> LogReader.parse(Path.of(path), logLine));
         } catch (Exception e) {
             throw new RuntimeException("Failed to read logs file", e);
         }

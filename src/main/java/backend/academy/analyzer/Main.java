@@ -13,6 +13,13 @@ public class Main {
             .parse(args);
         LogReader logReader = new LogReader();
         LogReport logReport = new LogReport(logReader.readFile(params.path()));
+        log.info(logReport.fileNames());
+        log.info(logReport.fromDate());
+        log.info(logReport.toDate());
         log.info(logReport.recordsCount());
+        log.info(logReport.averageBodyBytesSent());
+        log.info(logReport.percentile95BodyBytesSent());
+        log.info(logReport.resources());
+        log.info(logReport.statuses());
     }
 }
