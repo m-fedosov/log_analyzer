@@ -11,7 +11,8 @@ public class Main {
             .addObject(params)
             .build()
             .parse(args);
-        LogReader logReader = new LogReader(params.path());
-        log.info(logReader.readFile());
+        LogReader logReader = new LogReader();
+        LogReport logReport = new LogReport(logReader.readFile(params.path()));
+        log.info(logReport.recordsCount());
     }
 }

@@ -10,11 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
-@AllArgsConstructor
 public class LogReader {
-    String path;
-
     private static final Pattern LOG_PATTERN = Pattern.compile(
         "^(?<remoteAddr>\\S+) - (?<remoteUser>\\S*) \\[(?<timeLocal>[^\\]]+)] " +
             "\"(?<request>[^\"]+)\" (?<status>\\d{3}) (?<bodyBytesSent>\\d+) " +
@@ -44,17 +42,12 @@ public class LogReader {
         );
     }
 
-    public List<LogRecord> readFile() {
-        try(
-            FileInputStream fileInputStream = new FileInputStream(this.path);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream))
-        ) {
-            ArrayList<LogRecord> logRecords = new ArrayList<>();
-            String str;
-            while ((str = reader.readLine()) != null)   {
-                logRecords.add(parse(str));
-            }
-            return logRecords;
+    public Stream<LogRecord> readFile(String path) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(path);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+            return reader.lines()
+                         .map(LogReader::parse);
         } catch (Exception e) {
             throw new RuntimeException("Failed to read logs file", e);
         }
