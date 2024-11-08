@@ -34,10 +34,10 @@ class Filter {
 
         value = value.replace("*", ".*"); // To RegEx
         if ("agent".equals(field)) {
-            return logRecord.getAgent().matches(value);
+            return logRecord.agent().matches(value);
         }
         if ("method".equals(field)) {
-            return logRecord.getMethod().matches(value);
+            return logRecord.method().matches(value);
         }
 
         return false;

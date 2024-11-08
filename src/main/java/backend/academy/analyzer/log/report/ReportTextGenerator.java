@@ -20,30 +20,65 @@ public abstract class ReportTextGenerator {
             .append(formatTableEnd())
             .append("\n");
 
-        report.append(formatHeader("Запрашиваемые ресурсы"))
-            .append(formatTableStart("Ресурс", "Количество"));
-        // Сортировка запрашиваемых ресурсов от самых частых к самым редким
-        logReport.resources().entrySet()
-            .stream()
-            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-            .forEach(entry -> report.append(formatTableRow(entry.getKey(), String.format("%,d", entry.getValue()))));
-        report.append(formatTableEnd())
-            .append("\n");
+        report.append(
+            generateSortedTableSection(
+                "Запрашиваемые ресурсы",
+                "Ресурс",
+                "Количество",
+                logReport.resources())
+        );
 
-        report.append(formatHeader("Коды ответа"))
+        report.append(generateStatusCodesSection(logReport));
+
+        report.append(
+            generateSortedTableSection(
+                "HTTP methods",
+                "Метод",
+                "Количество",
+                logReport.methods())
+        );
+
+        report.append(
+            generateSortedTableSection(
+                "User Agents",
+                "httpUserAgent",
+                "Количество",
+                logReport.agents())
+        );
+
+        return report.toString();
+    }
+
+    private String generateSortedTableSection(String header, String column1, String column2, Map<String, Integer> data) {
+        // Generates a sorted (reverse) table section for any data
+        StringBuilder section = new StringBuilder();
+        section.append(formatHeader(header))
+            .append(formatTableStart(column1, column2));
+
+        data.entrySet().stream()
+            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+            .forEach(entry -> section.append(formatTableRow(entry.getKey(), String.format("%,d", entry.getValue()))));
+
+        section.append(formatTableEnd()).append("\n");
+        return section.toString();
+    }
+
+    private String generateStatusCodesSection(LogReport logReport) {
+        // Generates a sorted (reverse) table section for response codes
+        StringBuilder section = new StringBuilder();
+        section.append(formatHeader("Коды ответа"))
             .append(formatTableStart("Код", "Имя", "Количество"));
-        // Сортировка кодов ответа от самых частых к самым редким
-        logReport.statuses().entrySet()
-            .stream()
+
+        logReport.statuses().entrySet().stream()
             .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
             .forEach(entry -> {
                 String statusText = org.apache.http.impl.EnglishReasonPhraseCatalog.INSTANCE.getReason(entry.getKey(), null);
                 String statusName = statusText != null ? statusText : "Unknown";
-                report.append(formatTableRow(String.valueOf(entry.getKey()), statusName, String.format("%,d", entry.getValue())));
+                section.append(formatTableRow(String.valueOf(entry.getKey()), statusName, String.format("%,d", entry.getValue())));
             });
-        report.append(formatTableEnd());
 
-        return report.toString();
+        section.append(formatTableEnd()).append("\n");
+        return section.toString();
     }
 
     protected abstract String formatHeader(String title);
