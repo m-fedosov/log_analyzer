@@ -1,5 +1,6 @@
-package backend.academy.analyzer;
+package backend.academy.analyzer.log.report;
 
+import backend.academy.analyzer.LogRecord;
 import com.google.common.math.Quantiles;
 import lombok.Getter;
 import java.time.LocalDateTime;
@@ -19,7 +20,7 @@ public class LogReport {
     private final HashMap<String, Integer> resources = new HashMap<>();
     private final HashMap<Integer, Integer> statuses = new HashMap<>();
 
-    LogReport(Stream<LogRecord> logRecordStream) {
+    public LogReport(Stream<LogRecord> logRecordStream) {
         logRecordStream.forEach(this::accumulate);
         logRecordStream.close();
     }
