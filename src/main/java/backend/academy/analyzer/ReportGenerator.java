@@ -10,7 +10,7 @@ public class ReportGenerator {
     public static String generateReport(CliParams params) {
         String report = "";
         try {
-            LogReader logReader = new LogReader(params.path(), params.fromDate(), params.toDate());
+            LogReader logReader = new LogReader(params);
             LogReport logReport = new LogReport(logReader.read());
             if (params.format().equals("markdown")) {
                 ReportTextFormatMarkdown markdownLogReport = new ReportTextFormatMarkdown();

@@ -35,5 +35,17 @@ public class CliParams {
         description = "Output format (allowed values: markdown, adoc)",
         validateWith = FormatValidator.class
     )
-    private String format = "markdown";  // Значение по умолчанию
+    private String format = "markdown";  // Default value
+
+    @Parameter(
+        names = { "--filter-field" },
+        description = "Field to filter (e.g., agent, method)"
+    )
+    private String field;
+
+    @Parameter(
+        names = { "--filter-value" },
+        description = "Value to filter by (supports * as wildcard)"
+    )
+    private String value;
 }
