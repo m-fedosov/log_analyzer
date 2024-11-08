@@ -10,8 +10,7 @@ public abstract class ReportGenerator {
         StringBuilder report = new StringBuilder();
 
         report.append(formatHeader("Общая информация"))
-            .append(formatTableStart())
-            .append(formatTableRow("Метрика", "Значение"))
+            .append(formatTableStart("Метрика", "Значение"))
             .append(formatTableRow("Файл(-ы)", String.join(", ", logReport.fileNames())))
             .append(formatTableRow("Начальная дата", logReport.fromDate() == null ? "-" : logReport.fromDate().format(dateFormatter)))
             .append(formatTableRow("Конечная дата", logReport.toDate() == null ? "-" : logReport.toDate().format(dateFormatter)))
@@ -22,8 +21,7 @@ public abstract class ReportGenerator {
             .append("\n");
 
         report.append(formatHeader("Запрашиваемые ресурсы"))
-            .append(formatTableStart())
-            .append(formatTableRow("Ресурс", "Количество"));
+            .append(formatTableStart("Ресурс", "Количество"));
         // Сортировка запрашиваемых ресурсов от самых частых к самым редким
         logReport.resources().entrySet()
             .stream()
@@ -33,8 +31,7 @@ public abstract class ReportGenerator {
             .append("\n");
 
         report.append(formatHeader("Коды ответа"))
-            .append(formatTableStart())
-            .append(formatTableRow("Код", "Имя", "Количество"));
+            .append(formatTableStart("Код", "Имя", "Количество"));
         // Сортировка кодов ответа от самых частых к самым редким
         logReport.statuses().entrySet()
             .stream()
@@ -50,7 +47,7 @@ public abstract class ReportGenerator {
     }
 
     protected abstract String formatHeader(String title);
-    protected abstract String formatTableStart();
+    protected abstract String formatTableStart(String... columns);
     protected abstract String formatTableRow(String... columns);
     protected abstract String formatTableEnd();
 }

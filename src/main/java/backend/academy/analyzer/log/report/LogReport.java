@@ -48,10 +48,16 @@ public class LogReport {
     }
 
     public int averageBodyBytesSent() {
+        if (recordsCount == 0) {
+            return 0;
+        }
         return (int)(totalBodyBytesSent / recordsCount);
     }
 
     public double percentile95BodyBytesSent() {
+        if (bodyBytesSent.isEmpty()) {
+            return 0d;
+        }
         return Quantiles.percentiles().index(95).compute(bodyBytesSent);
     }
 }

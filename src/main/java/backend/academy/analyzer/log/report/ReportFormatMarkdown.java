@@ -7,13 +7,27 @@ public class ReportFormatMarkdown extends ReportGenerator {
     }
 
     @Override
-    protected String formatTableStart() {
-        return "|:---------------------:|-------------:|\n";
+    protected String formatTableStart(String... columns) {
+        StringBuilder stringBuilder = new StringBuilder("|");
+        for (String column : columns) {
+            stringBuilder.append(String.format( " %s |", column));
+        }
+        stringBuilder.append("\n");
+
+        stringBuilder.append("|");
+        stringBuilder.append(":----:|".repeat(columns.length));
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
     }
 
     @Override
     protected String formatTableRow(String... columns) {
-        return String.format("| %-20s | %s |\n", columns[0], columns[1]);
+        StringBuilder stringBuilder = new StringBuilder("|");
+        for (String column : columns) {
+            stringBuilder.append(String.format( " %s |", column));
+        }
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
     }
 
     @Override

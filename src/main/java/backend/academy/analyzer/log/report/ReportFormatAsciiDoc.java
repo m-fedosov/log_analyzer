@@ -7,8 +7,8 @@ public class ReportFormatAsciiDoc extends ReportGenerator {
     }
 
     @Override
-    protected String formatTableStart() {
-        return "|===\n";
+    protected String formatTableStart(String... columns) {
+        return "|===\n" + "| " + String.join(" | ", columns) + "\n";
     }
 
     @Override
