@@ -1,6 +1,7 @@
 package backend.academy.analyzer;
 
 import backend.academy.analyzer.cli.CliParams;
+import backend.academy.analyzer.cli.DateValidator;
 import backend.academy.analyzer.log.report.ReportFormatAsciiDoc;
 import backend.academy.analyzer.log.report.LogReport;
 import backend.academy.analyzer.log.report.ReportFormatMarkdown;
@@ -17,12 +18,14 @@ public class Main {
                 .addObject(params)
                 .build()
                 .parse(args);
+            DateValidator dateValidator = new DateValidator();
+            dateValidator.validate(params);
         } catch (ParameterException e) {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        LogReader logReader = new LogReader();
-        LogReport logReport = new LogReport(logReader.readFile(params.path()));
+        LogReader logReader = new LogReader(params.path(), params.fromDate(), params.toDate());
+        LogReport logReport = new LogReport(logReader.readFile());
         if (params.format().equals("markdown")) {
             ReportFormatMarkdown markdownLogReport = new ReportFormatMarkdown();
             System.out.println(markdownLogReport.generate(logReport));

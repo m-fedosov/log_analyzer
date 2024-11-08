@@ -2,6 +2,7 @@ package backend.academy.analyzer.cli;
 
 import com.beust.jcommander.Parameter;
 import lombok.Getter;
+import java.time.LocalDate;
 
 @Getter
 public class CliParams {
@@ -11,8 +12,19 @@ public class CliParams {
         description = "Path to log files", required = true)
     private String path;
 
-//    @Parameter(names = "--from", description = "Дата начала диапазона", converter = LocalDateConverter.class)
-//    private LocalDate fromDate;
+    @Parameter(
+        names = { "--from" },
+        description = "Start date in format yyyy-MM-dd (optional)",
+        converter = DateConverter.class
+    )
+    private LocalDate fromDate;
+
+    @Parameter(
+        names = { "--to" },
+        description = "End date in format yyyy-MM-dd (optional)",
+        converter = DateConverter.class
+    )
+    private LocalDate toDate;
 
     @Parameter(
         names = { "-f", "--format" },
