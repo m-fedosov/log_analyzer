@@ -1,4 +1,4 @@
-package backend.academy.analyzer;
+package backend.academy.analyzer.log.record;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;

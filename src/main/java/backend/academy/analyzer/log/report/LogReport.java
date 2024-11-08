@@ -1,6 +1,6 @@
 package backend.academy.analyzer.log.report;
 
-import backend.academy.analyzer.LogRecord;
+import backend.academy.analyzer.log.record.LogRecord;
 import com.google.common.math.Quantiles;
 import lombok.Getter;
 import java.time.LocalDateTime;

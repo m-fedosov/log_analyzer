@@ -1,4 +1,4 @@
-package backend.academy.analyzer.cli;
+package backend.academy.analyzer.cli.converter;
 
 import com.beust.jcommander.IStringConverter;
 import com.beust.jcommander.ParameterException;

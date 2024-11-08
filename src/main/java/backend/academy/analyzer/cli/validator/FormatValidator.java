@@ -1,9 +1,8 @@
-package backend.academy.analyzer.cli;
+package backend.academy.analyzer.cli.validator;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
 
-// Класс для валидации параметра format
 public class FormatValidator implements IParameterValidator {
     @Override
     public void validate(String name, String value) throws ParameterException {

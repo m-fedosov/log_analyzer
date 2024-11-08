@@ -1,5 +1,6 @@
-package backend.academy.analyzer.cli;
+package backend.academy.analyzer.cli.validator;
 
+import backend.academy.analyzer.cli.CliParams;
 import com.beust.jcommander.ParameterException;
 
 public class DateValidator {

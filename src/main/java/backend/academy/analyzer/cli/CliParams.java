@@ -1,12 +1,14 @@
 package backend.academy.analyzer.cli;
 
+import backend.academy.analyzer.cli.converter.DateConverter;
+import backend.academy.analyzer.cli.validator.FormatValidator;
+import backend.academy.analyzer.cli.validator.PathValidator;
 import com.beust.jcommander.Parameter;
 import lombok.Getter;
 import java.time.LocalDate;
 
 @Getter
 public class CliParams {
-    // TODO: добавить валидацию параметров
     @Parameter(
         names = { "-p", "--path" },
         description = "Path to log files", required = true,

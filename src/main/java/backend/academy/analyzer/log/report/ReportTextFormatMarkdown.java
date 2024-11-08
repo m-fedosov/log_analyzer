@@ -1,6 +1,6 @@
 package backend.academy.analyzer.log.report;
 
-public class ReportFormatMarkdown extends ReportGenerator {
+public class ReportTextFormatMarkdown extends ReportTextGenerator {
     @Override
     protected String formatHeader(String title) {
         return "#### " + title + "\n\n";

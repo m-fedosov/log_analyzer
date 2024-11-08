@@ -1,6 +1,6 @@
 package backend.academy.analyzer.log.report;
 
-public class ReportFormatAsciiDoc extends ReportGenerator {
+public class ReportTextFormatAsciiDoc extends ReportTextGenerator {
     @Override
     protected String formatHeader(String title) {
         return "== " + title + "\n\n";

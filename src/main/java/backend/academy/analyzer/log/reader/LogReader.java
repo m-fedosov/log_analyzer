@@ -1,5 +1,6 @@
-package backend.academy.analyzer;
+package backend.academy.analyzer.log.reader;
 
+import backend.academy.analyzer.log.record.LogRecord;
 import lombok.AllArgsConstructor;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

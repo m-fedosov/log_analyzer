@@ -3,7 +3,7 @@ package backend.academy.analyzer.log.report;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-public abstract class ReportGenerator {
+public abstract class ReportTextGenerator {
     protected DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public String generate(LogReport logReport) {

@@ -1,15 +1,13 @@
-package backend.academy.analyzer.cli;
+package backend.academy.analyzer.cli.validator;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
-import java.io.FileInputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-// Класс для валидации параметра format
 public class PathValidator implements IParameterValidator {
     @Override
     public void validate(String name, String value) throws ParameterException {
