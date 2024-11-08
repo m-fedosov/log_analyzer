@@ -24,15 +24,20 @@ public class Main {
             System.err.println(e.getMessage());
             System.exit(1);
         }
-        LogReader logReader = new LogReader(params.path(), params.fromDate(), params.toDate());
-        LogReport logReport = new LogReport(logReader.readFile());
-        if (params.format().equals("markdown")) {
-            ReportFormatMarkdown markdownLogReport = new ReportFormatMarkdown();
-            System.out.println(markdownLogReport.generate(logReport));
-        }
-        if (params.format().equals("adoc")) {
-            ReportFormatAsciiDoc asciiDocLogReport = new ReportFormatAsciiDoc();
-            System.out.println(asciiDocLogReport.generate(logReport));
+        try {
+            LogReader logReader = new LogReader(params.path(), params.fromDate(), params.toDate());
+            LogReport logReport = new LogReport(logReader.read());
+            if (params.format().equals("markdown")) {
+                ReportFormatMarkdown markdownLogReport = new ReportFormatMarkdown();
+                System.out.println(markdownLogReport.generate(logReport));
+            }
+            if (params.format().equals("adoc")) {
+                ReportFormatAsciiDoc asciiDocLogReport = new ReportFormatAsciiDoc();
+                System.out.println(asciiDocLogReport.generate(logReport));
+            }
+        } catch (RuntimeException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
     }
 }

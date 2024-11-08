@@ -1,9 +1,11 @@
 package backend.academy.analyzer;
 
 import lombok.AllArgsConstructor;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,16 +49,33 @@ public class LogReader {
         );
     }
 
-    public Stream<LogRecord> readFile() {
+    private Stream<LogRecord> processStream(BufferedReader reader) {
+        return reader.lines()
+            .map(logLine -> LogReader.parse(Path.of(path), logLine))
+            .filter(logRecord -> this.filterByDate(logRecord.timeLocal()));
+    }
+
+    public Stream<LogRecord> read() throws RuntimeException {
+        // try to read from file
         try {
-            FileInputStream fileInputStream = new FileInputStream(path);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
-            return reader.lines()
-                         .map(logLine -> LogReader.parse(Path.of(path), logLine))
-                         .filter(logRecord -> this.filterByDate(logRecord.timeLocal()));
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to read logs file", e);
+            FileInputStream fileIn = new FileInputStream(path);
+            BufferedReader fileReader = new BufferedReader(new InputStreamReader(fileIn));
+            return processStream(fileReader);
+        } catch (Exception _) {
+
         }
+
+        // try to read from URL
+        try {
+            System.out.println("Wait a minute, try to read a file from the internet");
+            BufferedInputStream urlIn = new BufferedInputStream(new URI(path).toURL().openStream());
+            BufferedReader urlReader = new BufferedReader(new InputStreamReader(urlIn));
+            return processStream(urlReader);
+        } catch (Exception _) {
+            System.out.println("Sorry, can't read file by the link");
+        }
+
+        throw new RuntimeException("Failed to read logs from path: " + path);
     }
 
     private boolean filterByDate(LocalDateTime logRecordTime) {

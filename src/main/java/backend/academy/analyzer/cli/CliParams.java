@@ -9,7 +9,9 @@ public class CliParams {
     // TODO: добавить валидацию параметров
     @Parameter(
         names = { "-p", "--path" },
-        description = "Path to log files", required = true)
+        description = "Path to log files", required = true,
+        validateWith = PathValidator.class
+    )
     private String path;
 
     @Parameter(
