@@ -24,7 +24,7 @@ public class PathValidator implements IParameterValidator {
         }
 
         if (!isValidPath && !isValidURL) {
-            throw new ParameterException("Parameter " + name + " must be a valid URL or a valid path to file");
+            throw new ParameterException("Parameter " + name + " must be a valid URL or a valid path to file, " + value);
         }
     }
 }

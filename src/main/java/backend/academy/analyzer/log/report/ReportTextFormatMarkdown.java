@@ -32,6 +32,6 @@ public class ReportTextFormatMarkdown extends ReportTextGenerator {
 
     @Override
     protected String formatTableEnd() {
-        return "\n";
+        return "";
     }
 }
