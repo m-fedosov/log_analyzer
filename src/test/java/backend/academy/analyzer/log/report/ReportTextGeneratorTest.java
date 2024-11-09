@@ -13,6 +13,7 @@ class ReportTextGeneratorTest {
     @Test
     void generateMarkdown() {
         String report = """
+
             #### Общая информация
 
             | Метрика | Значение |
@@ -74,6 +75,7 @@ class ReportTextGeneratorTest {
     @Test
     void generateAsciiDoc() {
         String report = """
+
             == Общая информация
 
             |===

@@ -10,7 +10,8 @@ public abstract class ReportTextGenerator {
     public String generate(LogReport logReport) {
         StringBuilder report = new StringBuilder();
 
-        report.append(formatHeader("Общая информация"))
+        report.append("\n")
+            .append(formatHeader("Общая информация"))
             .append(formatTableStart("Метрика", "Значение"))
             .append(formatTableRow("Файл(-ы)", String.join(", ", logReport.fileNames())))
             .append(formatTableRow(
