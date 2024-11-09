@@ -3,9 +3,13 @@ package backend.academy.analyzer;
 import backend.academy.analyzer.cli.CliParams;
 import backend.academy.analyzer.cli.validator.DateValidator;
 import com.beust.jcommander.JCommander;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class CommandLineParser {
-    public static CliParams parse(String[] args) {
+    private String[] args;
+
+    public CliParams parse() {
         CliParams params = new CliParams();
         JCommander.newBuilder()
                 .addObject(params)

@@ -2,7 +2,6 @@ package backend.academy.analyzer.log.reader;
 
 import backend.academy.analyzer.cli.CliParams;
 import backend.academy.analyzer.log.record.LogRecord;
-import lombok.AllArgsConstructor;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -14,15 +13,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 @AllArgsConstructor
+@Log4j2
 public class LogReader {
     private CliParams params;
 
     private static final Pattern LOG_PATTERN = Pattern.compile(
-        "^(?<remoteAddr>\\S+) - (?<remoteUser>\\S*) \\[(?<timeLocal>[^\\]]+)] " +
-            "\"(?<request>[^\"]+)\" (?<status>\\d{3}) (?<bodyBytesSent>\\d+) " +
-            "\"(?<httpReferer>[^\"]*)\" \"(?<httpUserAgent>[^\"]*)\""
+        "^(?<remoteAddr>\\S+) - (?<remoteUser>\\S*) \\[(?<timeLocal>[^\\]]+)] "
+            + "\"(?<request>[^\"]+)\" (?<status>\\d{3}) (?<bodyBytesSent>\\d+) "
+            + "\"(?<httpReferer>[^\"]*)\" \"(?<httpUserAgent>[^\"]*)\""
     );
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MMM/yyyy:HH:mm:ss Z");
@@ -54,6 +56,7 @@ public class LogReader {
             .filter(logRecord -> Filter.checkRecord(logRecord, params));
     }
 
+    @SuppressWarnings({"CatchParameterName", "IllegalIdentifierName"})
     public Stream<LogRecord> read() throws RuntimeException {
         // try to read from file
         try {
@@ -66,12 +69,12 @@ public class LogReader {
 
         // try to read from URL
         try {
-            System.out.println("Wait a minute, try to read a file from the internet");
+            log.info("Wait a minute, try to read a file from the internet");
             BufferedInputStream urlIn = new BufferedInputStream(new URI(params.path()).toURL().openStream());
             BufferedReader urlReader = new BufferedReader(new InputStreamReader(urlIn));
             return processStream(urlReader);
         } catch (Exception _) {
-            System.out.println("Sorry, can't read file by the link");
+            log.info("Sorry, can't read file by the link");
         }
 
         throw new RuntimeException("Failed to read logs from path: " + params.path());

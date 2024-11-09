@@ -2,12 +2,12 @@ package backend.academy.analyzer.log.report;
 
 import backend.academy.analyzer.log.record.LogRecord;
 import com.google.common.math.Quantiles;
-import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.stream.Stream;
+import lombok.Getter;
 
 @Getter
 public class LogReport {
@@ -57,9 +57,10 @@ public class LogReport {
         if (recordsCount == 0) {
             return 0;
         }
-        return (int)(totalBodyBytesSent / recordsCount);
+        return (int) (totalBodyBytesSent / recordsCount);
     }
 
+    @SuppressWarnings("MagicNumber")
     public double percentile95BodyBytesSent() {
         if (bodyBytesSent.isEmpty()) {
             return 0d;

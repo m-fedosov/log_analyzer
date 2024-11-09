@@ -65,8 +65,10 @@ class ReportTextGeneratorTest {
 
             """;
         String[] args = {"-p", "logs/2024backend_logs_10_lines.txt", "-f", "markdown"};
-        CliParams params = CommandLineParser.parse(args);
-        assertEquals(report, ReportGenerator.generateReport(params));
+        CommandLineParser commandLineParser = new CommandLineParser(args);
+        CliParams params = commandLineParser.parse();
+        ReportGenerator reportGenerator = new ReportGenerator(params);
+        assertEquals(report, reportGenerator.generateReport());
     }
 
     @Test
@@ -129,7 +131,9 @@ class ReportTextGeneratorTest {
 
             """;
         String[] args = {"-p", "logs/2024backend_logs_10_lines.txt", "-f", "adoc"};
-        CliParams params = CommandLineParser.parse(args);
-        assertEquals(report, ReportGenerator.generateReport(params));
+        CommandLineParser commandLineParser = new CommandLineParser(args);
+        CliParams params = commandLineParser.parse();
+        ReportGenerator reportGenerator = new ReportGenerator(params);
+        assertEquals(report, reportGenerator.generateReport());
     }
 }

@@ -1,5 +1,6 @@
 package backend.academy.analyzer.log.report;
 
+@SuppressWarnings("MultipleStringLiterals")
 public class ReportTextFormatMarkdown extends ReportTextGenerator {
     @Override
     protected String formatHeader(String title) {
@@ -10,7 +11,7 @@ public class ReportTextFormatMarkdown extends ReportTextGenerator {
     protected String formatTableStart(String... columns) {
         StringBuilder stringBuilder = new StringBuilder("|");
         for (String column : columns) {
-            stringBuilder.append(String.format( " %s |", column));
+            stringBuilder.append(String.format(" %s |", column));
         }
         stringBuilder.append("\n");
 
@@ -24,7 +25,7 @@ public class ReportTextFormatMarkdown extends ReportTextGenerator {
     protected String formatTableRow(String... columns) {
         StringBuilder stringBuilder = new StringBuilder("|");
         for (String column : columns) {
-            stringBuilder.append(String.format( " %s |", column));
+            stringBuilder.append(String.format(" %s |", column));
         }
         stringBuilder.append("\n");
         return stringBuilder.toString();

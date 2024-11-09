@@ -5,9 +5,13 @@ import backend.academy.analyzer.log.reader.LogReader;
 import backend.academy.analyzer.log.report.LogReport;
 import backend.academy.analyzer.log.report.ReportTextFormatAsciiDoc;
 import backend.academy.analyzer.log.report.ReportTextFormatMarkdown;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class ReportGenerator {
-    public static String generateReport(CliParams params) {
+    private CliParams params;
+
+    public String generateReport() {
         String report = "";
         LogReader logReader = new LogReader(params);
         LogReport logReport = new LogReport(logReader.read());

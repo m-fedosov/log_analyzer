@@ -1,6 +1,7 @@
 package backend.academy.analyzer.cli;
 
 import backend.academy.analyzer.CommandLineParser;
+import backend.academy.analyzer.ReportGenerator;
 import com.beust.jcommander.ParameterException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,8 @@ class CliParamsTest {
     void parseFailPath() {
         String[] args = {"-p", "file_not_exist.txt"};
         assertThrows(ParameterException.class, () -> {
-            CommandLineParser.parse(args);
+            CommandLineParser commandLineParser = new CommandLineParser(args);
+            commandLineParser.parse();
         });
     }
 
@@ -22,7 +24,8 @@ class CliParamsTest {
     void parseOkPath() {
         String[] args = {"-p", "logs/2024backend_logs_examples.txt"};
         assertDoesNotThrow(() -> {
-            CommandLineParser.parse(args);
+            CommandLineParser commandLineParser = new CommandLineParser(args);
+            commandLineParser.parse();
         });
     }
 
@@ -31,7 +34,8 @@ class CliParamsTest {
     void parseFailUrl() {
         String[] args = {"-p", "badUrl://random.com/some_file.txt"};
         assertThrows(ParameterException.class, () -> {
-            CommandLineParser.parse(args);
+            CommandLineParser commandLineParser = new CommandLineParser(args);
+            commandLineParser.parse();
         });
     }
 
@@ -40,7 +44,8 @@ class CliParamsTest {
     void parseOkUrl() {
         String[] args = {"-p", "https://good_url/nginx_logs"};
         assertDoesNotThrow(() -> {
-            CommandLineParser.parse(args);
+            CommandLineParser commandLineParser = new CommandLineParser(args);
+            commandLineParser.parse();
         });
     }
 
@@ -49,7 +54,8 @@ class CliParamsTest {
     void parseWrongDate() {
         String[] args = {"-p", "logs/2024backend_logs_examples.txt", "--from", "2024-08-31", "--to", "2024-07-31"};
         assertThrows(ParameterException.class, () -> {
-            CommandLineParser.parse(args);
+            CommandLineParser commandLineParser = new CommandLineParser(args);
+            commandLineParser.parse();
         });
     }
 
@@ -58,7 +64,8 @@ class CliParamsTest {
     void parseOkDateFull() {
         String[] args = {"-p", "logs/2024backend_logs_examples.txt", "--from", "2024-07-31", "--to", "2024-08-31"};
         assertDoesNotThrow(() -> {
-            CommandLineParser.parse(args);
+            CommandLineParser commandLineParser = new CommandLineParser(args);
+            commandLineParser.parse();
         });
     }
 
@@ -67,7 +74,8 @@ class CliParamsTest {
     void parseOkDateFrom() {
         String[] args = {"-p", "logs/2024backend_logs_examples.txt", "--from", "2024-07-31"};
         assertDoesNotThrow(() -> {
-            CommandLineParser.parse(args);
+            CommandLineParser commandLineParser = new CommandLineParser(args);
+            commandLineParser.parse();
         });
     }
 
@@ -76,7 +84,8 @@ class CliParamsTest {
     void parseOkDateTo() {
         String[] args = {"-p", "logs/2024backend_logs_examples.txt", "--to", "2024-08-31"};
         assertDoesNotThrow(() -> {
-            CommandLineParser.parse(args);
+            CommandLineParser commandLineParser = new CommandLineParser(args);
+            commandLineParser.parse();
         });
     }
 }

@@ -4,7 +4,9 @@ import backend.academy.analyzer.cli.CliParams;
 import backend.academy.analyzer.log.record.LogRecord;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 class Filter {
     static boolean checkRecord(LogRecord logRecord, CliParams params) {
         return filterByDate(logRecord, params) && filterByFieldValue(logRecord, params);

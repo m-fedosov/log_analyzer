@@ -1,5 +1,6 @@
 package backend.academy.analyzer.log.report;
 
+@SuppressWarnings("MultipleStringLiterals")
 public class ReportTextFormatAsciiDoc extends ReportTextGenerator {
     @Override
     protected String formatHeader(String title) {

@@ -3,7 +3,8 @@ package backend.academy.analyzer.log.record;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 
-public record LogRecord (
+@SuppressWarnings("RecordComponentNumber")
+public record LogRecord(
     Path path,
     String remoteAddr,
     String remoteUser,
@@ -14,15 +15,17 @@ public record LogRecord (
     String httpReferer,
     String httpUserAgent
 ) {
+    private static final String UNKNOWN = "Unknown";
+
     public String method() {
         return (request != null && !request.isEmpty())
             ? request.split(" ")[0]
-            : "Unknown";
+            : UNKNOWN;
     }
 
     public String agent() {
         return (httpUserAgent != null && !httpUserAgent.isEmpty())
             ? httpUserAgent.split("[ /]", 2)[0]
-            : "Unknown";
+            : UNKNOWN;
     }
 }

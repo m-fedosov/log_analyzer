@@ -14,7 +14,8 @@ class LogReportTest {
 
     static LogReport generateLogReport() {
         String[] args = {"-p", "logs/2024backend_logs_10_lines.txt"};
-        CliParams params = CommandLineParser.parse(args);
+        CommandLineParser commandLineParser = new CommandLineParser(args);
+        CliParams params = commandLineParser.parse();
         LogReader logReader = new LogReader(params);
         return new LogReport(logReader.read());
     }

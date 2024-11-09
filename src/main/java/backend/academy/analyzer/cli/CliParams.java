@@ -4,8 +4,8 @@ import backend.academy.analyzer.cli.converter.DateConverter;
 import backend.academy.analyzer.cli.validator.FormatValidator;
 import backend.academy.analyzer.cli.validator.PathValidator;
 import com.beust.jcommander.Parameter;
-import lombok.Getter;
 import java.time.LocalDate;
+import lombok.Getter;
 
 @Getter
 public class CliParams {

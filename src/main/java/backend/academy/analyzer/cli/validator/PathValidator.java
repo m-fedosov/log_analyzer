@@ -10,6 +10,7 @@ import java.nio.file.Path;
 
 public class PathValidator implements IParameterValidator {
     @Override
+    @SuppressWarnings({"CatchParameterName", "IllegalIdentifierName"})
     public void validate(String name, String value) throws ParameterException {
         boolean isValidPath = false;
         boolean isValidURL = false;
@@ -24,7 +25,9 @@ public class PathValidator implements IParameterValidator {
         }
 
         if (!isValidPath && !isValidURL) {
-            throw new ParameterException("Parameter " + name + " must be a valid URL or a valid path to file, " + value);
+            throw new ParameterException(
+                "Parameter " + name + " must be a valid URL or a valid path to file, " + value
+            );
         }
     }
 }
