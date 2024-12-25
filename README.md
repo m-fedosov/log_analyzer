@@ -66,7 +66,7 @@ This command filters logs based on the method field, showing only entries with t
 ## Output Format
 The program will output the analysis in either markdown or adoc format, depending on the selected output format. Here is an example of the output:
 
-- [Markdown](analyzer_output.adoc)
+- [Markdown](analyzer_output.md)
 
 - [Asciidoc](analyzer_output.adoc)
 
